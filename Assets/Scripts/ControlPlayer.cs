@@ -25,9 +25,27 @@ public class ControlPlayer : MonoBehaviour
 	public float fireRate;
 	private float nextFire;
 
+    //health variables
+    public int maxHealth;
+    public int currentHealth;
+    public float healthBarLength;
+
+    //images for health bar
+    public Texture2D bgImage;
+    public Texture2D fgImage;
+
+    void Start()
+    {
+        maxHealth = 1000000;
+        currentHealth = 1000000;
+        healthBarLength = Screen.width / 8;
+    }
 
 	void Update()
 	{
+        //update current health
+        AddJustCurrentHealth(0);
+
 		if (Input.GetButton ("Submit") && Time.time > nextFire) 
 		{
 			nextFire = Time.time + fireRate;
@@ -54,5 +72,56 @@ public class ControlPlayer : MonoBehaviour
 				Mathf.Clamp(rigidbody2D.position.y, bounds.yMin, bounds.yMax)
 			);
 	}
-	
+
+    void OnGUI()
+    {
+        //create one group to contain both images
+        //adjust the first two coordinates to place it somewhere else on screen
+        GUI.BeginGroup(new Rect(0, 0, healthBarLength, 15));
+
+        //draw background image
+        GUI.Box(new Rect(0, 0, healthBarLength, 15), bgImage);
+
+        //create second group which will be clipped 
+        //want to clip the image and not scale it
+        GUI.BeginGroup(new Rect(0, 0, currentHealth / maxHealth * healthBarLength, 15));
+
+        //draw foreground image
+        GUI.Box(new Rect(0, 0, healthBarLength, 15), fgImage);
+
+        //end both groups
+        GUI.EndGroup();
+        GUI.EndGroup();
+    }
+
+    public void AddJustCurrentHealth(int health)
+    {
+        currentHealth += health;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        if (maxHealth < 1)
+        {
+            maxHealth = 1;
+        }
+
+        //change the length of the health bar
+        healthBarLength = (Screen.width / 8) * (currentHealth / (float)maxHealth);
+    }
+
+    void OntriggerEnter2D(Collider collider)
+    {
+        if (collider.gameObject.tag == "Bullet")
+        {
+            //lower health if hit with bullet
+            currentHealth -= 10;
+        }
+    }
 }
