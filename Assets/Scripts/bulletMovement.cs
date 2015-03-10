@@ -4,16 +4,19 @@ using System.Collections;
 public class bulletMovement : MonoBehaviour
 {
 	public float speed;
+	public static float topY = 50f;
 
 	void Start()
 	{
 		//this mean that when bullet is created it will move forward
 		rigidbody2D.velocity = transform.forward * speed;
 	}
-	
-	void OnBecameInvisible()
+
+	void Update()
 	{
-		//destroy bullet
-		Destroy (gameObject);
+		if(transform.position.y > topY)
+		{
+			Destroy(this.gameObject);
+		}
 	}
 }

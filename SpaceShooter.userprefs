@@ -1,10 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ControlPlayer.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\asteroidMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\bulletMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="1" Column="1" />
+      <File FileName="Assets\asteroidMovement.cs" Line="23" Column="3" />
       <File FileName="Assets\Scripts\DestroyByBoundary.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\bulletMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\enemyScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ControlPlayer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
