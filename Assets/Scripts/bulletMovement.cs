@@ -14,8 +14,10 @@ public class bulletMovement : MonoBehaviour
 
 	void Update()
 	{
+		//if position id greater than topY
 		if(transform.position.y > topY)
 		{
+			//destroy object if outside bounds
 			Destroy(this.gameObject);
 		}
 	}

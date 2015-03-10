@@ -15,8 +15,10 @@ public class enemyBullet : MonoBehaviour
 	
 	void Update()
 	{
+		//if position is les than topY it will destroy object
 		if(transform.position.y < topY)
 		{
+			//destroy objects going outside the window
 			Destroy(this.gameObject);
 		}
 	}
