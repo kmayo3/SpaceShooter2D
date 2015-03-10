@@ -43,4 +43,12 @@ public class asteroidMovement : MonoBehaviour
 			speed *= -1;
 		}
 	}
+
+	void FixedUpdate()
+	{
+		if(Random.value < directions)
+		{
+			speed *= -1;
+		}
+	}
 }
