@@ -4,8 +4,8 @@ using System.Collections;
 public class enemyBullet : MonoBehaviour 
 {
 
-	public float speed;
-	public static float topY = -50f;
+	public float speed = .3f;
+	public static float topY = -25f;
 	
 	void Start()
 	{
@@ -15,7 +15,7 @@ public class enemyBullet : MonoBehaviour
 	
 	void Update()
 	{
-		//if position is les than topY it will destroy object
+		//if position is less than topY it will destroy object
 		if(transform.position.y < topY)
 		{
 			//destroy objects going outside the window
