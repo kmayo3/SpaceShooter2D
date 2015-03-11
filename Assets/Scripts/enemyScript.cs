@@ -25,6 +25,19 @@ public class enemyScript : MonoBehaviour
     public Texture2D bgImage;
     public Texture2D fgImage;
 
+    //bounds of game
+    public Boundary bounds;
+
+    [System.Serializable]
+    public class Boundary
+    {
+        //boundary for x and y axis
+        public float xMin;
+        public float xMax;
+        public float yMin;
+        public float yMax;
+    }
+
     void Start()
     {
         //initiazlied variables
@@ -116,6 +129,13 @@ public class enemyScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        //clamps player within bounds
+        rigidbody2D.position = new Vector2
+            (
+                Mathf.Clamp(rigidbody2D.position.x, bounds.xMin, bounds.xMax),
+                Mathf.Clamp(rigidbody2D.position.y, bounds.yMin, bounds.yMax)
+            );
+
         if (Random.value < directions)
         {
             speed *= -1;
