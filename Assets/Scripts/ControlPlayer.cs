@@ -28,7 +28,6 @@ public class ControlPlayer : MonoBehaviour
     //health variables
     public int maxHealth;
     public int currentHealth;
-    public GUIText guiHealth;
     void Start()
     {
         maxHealth = 100;
@@ -39,7 +38,6 @@ public class ControlPlayer : MonoBehaviour
 	{
         //update current health
         AdjustCurrentHealth(0);
-        guiHealth.text = currentHealth.ToString();
 
 		if (Input.GetButton ("Submit") && Time.time > nextFire) 
 		{
@@ -68,25 +66,25 @@ public class ControlPlayer : MonoBehaviour
 			);
 	}
 
-    void OnGUI()
-    {
-        ////create one group to contain both images
-        ////adjust the first two coordinates to place it somewhere else on screen
-        ////GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
+    //void OnGUI()
+    //{
+    //    //create one group to contain both images
+    //    //adjust the first two coordinates to place it somewhere else on screen
+    //    //GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
 
 
-        ////create second group which will be clipped 
-        ////want to clip the image and not scale it
-        //GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
+    //    //create second group which will be clipped 
+    //    //want to clip the image and not scale it
+    //    GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
 
-        ////draw foreground image
-        //GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height), bgImage);
-        //GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, (currentHealth / maxHealth) * healthBarWidth, bgImage.height), fgImage);
+    //    //draw foreground image
+    //    GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height), bgImage);
+    //    GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, (currentHealth / maxHealth) * healthBarWidth, bgImage.height), fgImage);
 
-        ////end both groups
-        ////GUI.EndGroup();
-        //GUI.EndGroup();
-    }
+    //    //end both groups
+    //    //GUI.EndGroup();
+    //    GUI.EndGroup();
+    //}
 
     public void AdjustCurrentHealth(int health)
     {
@@ -111,10 +109,5 @@ public class ControlPlayer : MonoBehaviour
             //lower health if hit with bullet
             AdjustCurrentHealth(-10);
         }
-    }
-
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
     }
 }

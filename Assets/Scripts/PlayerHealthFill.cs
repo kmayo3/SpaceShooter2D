@@ -2,15 +2,17 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class PlayerHealthFill : MonoBehaviour {
+public class PlayerHealthFill : MonoBehaviour
+{
 
     int health = 0;
-    
-    void Start () {
+
+    void Start()
+    {
     }
 
-	// Update is called once per frame
-	void Update () 
+    // Update is called once per frame
+    void Update()
     {
         Image image = GetComponent<Image>();
 
@@ -19,5 +21,5 @@ public class PlayerHealthFill : MonoBehaviour {
         health = scriptA.currentHealth;
 
         image.fillAmount = (float)(health) / 100;
-	}
+    }
 }

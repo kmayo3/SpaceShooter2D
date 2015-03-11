@@ -4,8 +4,8 @@ using System.Collections;
 public class enemyBullet : MonoBehaviour 
 {
 
-	public float speed = .3f;
-	public static float topY = -25f;
+	public float speed;
+	public static float topY = -50f;
 	
 	void Start()
 	{

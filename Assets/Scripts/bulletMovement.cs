@@ -4,7 +4,7 @@ using System.Collections;
 public class bulletMovement : MonoBehaviour
 {
 	public float speed;
-	public static float topY = 25f;
+	public static float topY = 50f;
 
 	void Start()
 	{

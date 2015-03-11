@@ -19,11 +19,6 @@ public class enemyScript : MonoBehaviour
     //health variables
     public int maxHealth;
     public int currentHealth;
-    public float healthBarLength;
-
-    //health bar images
-    public Texture2D bgImage;
-    public Texture2D fgImage;
 
     //bounds of game
     public Boundary bounds;
@@ -43,14 +38,13 @@ public class enemyScript : MonoBehaviour
         //initiazlied variables
         maxHealth = 10000;
         currentHealth = maxHealth;
-        healthBarLength = Screen.width / 2;
     }
 
     // Update is called once per frame
     void Update()
     {
         //update current health
-        AddJustCurrentHealth(0);
+        AdjustCurrentHealth(0);
 
         if (Time.time > nextFire)
         {
@@ -85,46 +79,41 @@ public class enemyScript : MonoBehaviour
         }
     }
 
-    void OnGUI()
+    //void OnGUI()
+    //{
+    //    //create one group to contain both images
+    //    //adjust the first two coordinates to place it somewhere else on screen
+    //    GUI.BeginGroup(new Rect((Screen.width / 8) + 6, 0, healthBarLength, 15));
+
+    //    //draw background image
+    //    GUI.Box(new Rect(0, 0, healthBarLength, 15), bgImage);
+
+    //    //create second group which will be clipped 
+    //    //want to clip the image and not scale it
+    //    GUI.BeginGroup(new Rect(0, 0, currentHealth / maxHealth * healthBarLength, 15));
+
+    //    //draw foreground image
+    //    GUI.Box(new Rect(0, 0, healthBarLength, 15), fgImage);
+
+    //    //end both groups
+    //    GUI.EndGroup();
+    //    GUI.EndGroup();
+    //}
+
+    public void AdjustCurrentHealth(int health)
     {
-        //create one group to contain both images
-        //adjust the first two coordinates to place it somewhere else on screen
-        GUI.BeginGroup(new Rect((Screen.width / 8) + 6, 0, healthBarLength, 15));
-
-        //draw background image
-        GUI.Box(new Rect(0, 0, healthBarLength, 15), bgImage);
-
-        //create second group which will be clipped 
-        //want to clip the image and not scale it
-        GUI.BeginGroup(new Rect(0, 0, currentHealth / maxHealth * healthBarLength, 15));
-
-        //draw foreground image
-        GUI.Box(new Rect(0, 0, healthBarLength, 15), fgImage);
-
-        //end both groups
-        GUI.EndGroup();
-        GUI.EndGroup();
-    }
-
-    public void AddJustCurrentHealth(int health)
-    {
+        // modify health
         currentHealth += health;
+
+        // clamp health within bounds
         if (currentHealth < 0)
         {
             currentHealth = 0;
         }
-
-        if (currentHealth > maxHealth)
+        else if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
-
-        if (maxHealth < 1)
-        {
-            maxHealth = 1;
-        }
-
-        healthBarLength = (Screen.width / 8) * (currentHealth / (float)maxHealth);
     }
 
     void FixedUpdate()
