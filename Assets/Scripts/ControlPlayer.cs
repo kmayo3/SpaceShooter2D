@@ -28,23 +28,18 @@ public class ControlPlayer : MonoBehaviour
     //health variables
     public int maxHealth;
     public int currentHealth;
-    public float healthBarLength;
-
-    //images for health bar
-    public Texture2D bgImage;
-    public Texture2D fgImage;
-
+    public GUIText guiHealth;
     void Start()
     {
-        maxHealth = 1000000;
-        currentHealth = 1000000;
-        healthBarLength = Screen.width / 8;
+        maxHealth = 100;
+        currentHealth = 50;
     }
 
 	void Update()
 	{
         //update current health
-        AddJustCurrentHealth(0);
+        AdjustCurrentHealth(0);
+        guiHealth.text = currentHealth.ToString();
 
 		if (Input.GetButton ("Submit") && Time.time > nextFire) 
 		{
@@ -75,45 +70,38 @@ public class ControlPlayer : MonoBehaviour
 
     void OnGUI()
     {
-        //create one group to contain both images
-        //adjust the first two coordinates to place it somewhere else on screen
-        GUI.BeginGroup(new Rect(0, 0, healthBarLength, 15));
+        ////create one group to contain both images
+        ////adjust the first two coordinates to place it somewhere else on screen
+        ////GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
 
-        //draw background image
-        GUI.Box(new Rect(0, 0, healthBarLength, 15), bgImage);
 
-        //create second group which will be clipped 
-        //want to clip the image and not scale it
-        GUI.BeginGroup(new Rect(0, 0, currentHealth / maxHealth * healthBarLength, 15));
+        ////create second group which will be clipped 
+        ////want to clip the image and not scale it
+        //GUI.BeginGroup(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height));
 
-        //draw foreground image
-        GUI.Box(new Rect(0, 0, healthBarLength, 15), fgImage);
+        ////draw foreground image
+        //GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, healthBarWidth, bgImage.height), bgImage);
+        //GUI.Box(new Rect(healthBarLocation.x, healthBarLocation.y, (currentHealth / maxHealth) * healthBarWidth, bgImage.height), fgImage);
 
-        //end both groups
-        GUI.EndGroup();
-        GUI.EndGroup();
+        ////end both groups
+        ////GUI.EndGroup();
+        //GUI.EndGroup();
     }
 
-    public void AddJustCurrentHealth(int health)
+    public void AdjustCurrentHealth(int health)
     {
+		// modify health
         currentHealth += health;
+
+		// clamp health within bounds
         if (currentHealth < 0)
         {
             currentHealth = 0;
         }
-
-        if (currentHealth > maxHealth)
+        else if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
-
-        if (maxHealth < 1)
-        {
-            maxHealth = 1;
-        }
-
-        //change the length of the health bar
-        healthBarLength = (Screen.width / 8) * (currentHealth / (float)maxHealth);
     }
 
     void OntriggerEnter2D(Collider collider)
@@ -121,7 +109,12 @@ public class ControlPlayer : MonoBehaviour
         if (collider.gameObject.tag == "Bullet")
         {
             //lower health if hit with bullet
-            currentHealth -= 10;
+            AdjustCurrentHealth(-10);
         }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
